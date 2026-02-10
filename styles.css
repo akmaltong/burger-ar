@@ -1,25 +1,57 @@
-const modelViewer = document.querySelector('#burger-model');
-
-// Получаем имя модели из URL
-const urlParams = new URLSearchParams(window.location.search);
-const modelName = urlParams.get('model');
-
-if (modelName) {
-    modelViewer.src = `${modelName}.glb`;
-    // Если у тебя будут файлы .usdz для iPhone, убери комментарий ниже:
-    // modelViewer.iosSrc = `${modelName}.usdz`; 
-    modelViewer.poster = `${modelName}.webp`;
+:not(:defined) > * {
+  display: none;
 }
 
-// Полоска загрузки
-const onProgress = (event) => {
-  const progressBar = event.target.querySelector('.progress-bar');
-  const updatingBar = event.target.querySelector('.update-bar');
-  updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
-  if (event.detail.totalProgress === 1) {
-    progressBar.classList.add('hide');
-  } else {
-    progressBar.classList.remove('hide');
-  }
-};
-modelViewer.addEventListener('progress', onProgress);
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+model-viewer {
+  width: 100%;
+  height: 100vh; /* Растягивает на всю высоту экрана */
+  background-color: transparent;
+  --poster-color: transparent;
+}
+
+#ar-button {
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 50px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  color: #4285f4;
+  font-family: sans-serif;
+  z-index: 999;
+}
+
+/* Скрываем кнопку, когда AR уже запущен */
+model-viewer[ar-status="session-started"] > #ar-button {
+  display: none;
+}
+
+.progress-bar {
+  display: block;
+  width: 33%;
+  height: 4px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.update-bar {
+  background-color: #4285f4;
+  width: 0%;
+  height: 100%;
+  transition: width 0.3s;
+}
+
+.hide { display: none; }
