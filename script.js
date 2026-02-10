@@ -1,28 +1,40 @@
-const modelViewer = document.querySelector("#burger-model");
+const marker = document.querySelector('#burger-marker');
+const entity = document.querySelector('#burger-entity');
+const hint = document.querySelector('#hint');
+const nameLabel = document.querySelector('#burger-name');
 
-// Смена моделей по QR-параметру
-const urlParams = new URLSearchParams(window.location.search);
-const modelName = urlParams.get('model');
-if (modelName) {
-    modelViewer.src = `${modelName}.glb`;
-    modelViewer.poster = `${modelName}.webp`;
+// Читаем название бургера из URL (если есть)
+const params = new URLSearchParams(window.location.search);
+const burgerId = params.get('burger') || "Hamburger 2";
+nameLabel.textContent = burgerId;
+
+// Логика обнаружения маркера как в твоем проекте
+marker.addEventListener('markerFound', () => {
+    hint.classList.add('hidden');
+    console.log("Маркер найден");
+});
+
+marker.addEventListener('markerLost', () => {
+    hint.classList.remove('hidden');
+    console.log("Маркер потерян");
+});
+
+// Функции управления
+let rotating = false;
+function toggleRotation() {
+    rotating = !rotating;
+    if (rotating) {
+        entity.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear');
+    } else {
+        entity.removeAttribute('animation');
+    }
 }
 
-// Обработка ошибок запуска AR
-modelViewer.addEventListener('ar-status', (event) => {
-    if(event.detail.status === 'failed'){
-        const error = document.querySelector("#error");
-        error.classList.add('show');
-        setTimeout(() => error.classList.remove('show'), 3000);
-    }
-});
-
-// Прогресс загрузки
-modelViewer.addEventListener('progress', (event) => {
-    const progressBar = document.querySelector(".progress-bar");
-    const updatingBar = document.querySelector(".update-bar");
-    updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
-    if (event.detail.totalProgress === 1) {
-        progressBar.classList.add("hide");
-    }
-});
+function changeScale(factor) {
+    const currentScale = entity.getAttribute('scale');
+    entity.setAttribute('scale', {
+        x: currentScale.x * factor,
+        y: currentScale.y * factor,
+        z: currentScale.z * factor
+    });
+}
