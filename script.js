@@ -1,13 +1,25 @@
-// Handles loading the events for <model-viewer>'s slotted progress bar
-const onProgress = (event) => {
-  const progressBar = event.target.querySelector('.progress-bar');
-  const updatingBar = event.target.querySelector('.update-bar');
-  updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
-  if (event.detail.totalProgress === 1) {
+const modelViewer = document.querySelector('#burger-model');
+
+// Поддержка QR-ссылок: ?model=ИмяФайла
+const urlParams = new URLSearchParams(window.location.search);
+const modelName = urlParams.get('model');
+
+if (modelName) {
+    modelViewer.src = `${modelName}.glb`;
+    modelViewer.poster = `${modelName}.webp`;
+}
+
+// Полоска загрузки
+modelViewer.addEventListener('progress', (event) => {
+  const progressBar = document.querySelector('.progress-bar');
+  const updatingBar = document.querySelector('.update-bar');
+  const progress = event.detail.totalProgress;
+  
+  updatingBar.style.width = `${progress * 100}%`;
+  
+  if (progress === 1) {
     progressBar.classList.add('hide');
-    event.target.removeEventListener('progress', onProgress);
   } else {
     progressBar.classList.remove('hide');
   }
-};
-document.querySelector('model-viewer').addEventListener('progress', onProgress);
+});
