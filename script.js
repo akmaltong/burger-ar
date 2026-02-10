@@ -1,18 +1,18 @@
-const modelViewer = document.querySelector('model-viewer');
+const modelViewer = document.querySelector('#burger-model');
 
-// Получаем имя модели из URL параметра ?model=...
+// Магия смены модели через URL
 const urlParams = new URLSearchParams(window.location.search);
 const modelName = urlParams.get('model');
 
 if (modelName) {
-    // Если в ссылке есть ?model=Burger1, меняем файлы
+    // Если в ссылке есть ?model=название, меняем файлы
     modelViewer.src = `${modelName}.glb`;
-    modelViewer.iosSrc = `${modelName}.usdz`;
+    modelViewer.iosSrc = `${modelName}.usdz`; 
     modelViewer.poster = `${modelName}.webp`;
 }
 
-// Управление полоской загрузки
-const onProgress = (event) => {
+// Полоска загрузки
+modelViewer.addEventListener('progress', (event) => {
   const progressBar = event.target.querySelector('.progress-bar');
   const updatingBar = event.target.querySelector('.update-bar');
   updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
@@ -21,6 +21,4 @@ const onProgress = (event) => {
   } else {
     progressBar.classList.remove('hide');
   }
-};
-
-modelViewer.addEventListener('progress', onProgress);
+});
