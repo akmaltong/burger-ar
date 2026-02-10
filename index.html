@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BURGRS AR</title>
+    <title>BURGRS AR - No Markers</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,11 +19,10 @@
         shadow-intensity="1" 
         exposure="1"
         loading="eager"
-        reveal="auto"
         poster="poster.webp">
       
         <button slot="ar-button" id="ar-button">
-            ПОСМОТРЕТЬ В AR
+            ПОСМОТРЕТЬ НА СТОЛЕ
         </button>
 
         <div id="ar-prompt" slot="ar-prompt">
@@ -33,7 +32,6 @@
         <div class="progress-bar hide" slot="progress-bar">
             <div class="update-bar"></div>
         </div>
-
     </model-viewer>  
 
     <script src="script.js"></script>
