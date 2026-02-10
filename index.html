@@ -12,22 +12,15 @@
         id="burger-model"
         src="Hamburger2.glb" 
         ar 
-        ar-modes="scene-viewer webxr quick-look" 
+        ar-modes="scene-viewer quick-look webxr" 
         ar-placement="floor"
-        ar-scale="auto"
-        camera-controls 
-        touch-action="pan-y"
-        shadow-intensity="1" 
-        exposure="1" 
+        camera-controls
         loading="eager"
+        reveal="manual"
         poster="poster.webp">
       
-      <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-      </div>
-
       <button slot="ar-button" id="ar-button">
-          ОТКРЫТЬ В AR
+          ПОСМОТРЕТЬ В AR
       </button>
 
       <div id="ar-prompt" slot="ar-prompt">
