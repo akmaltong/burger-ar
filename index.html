@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <title>AR Menu System</title>
+    <title>AR Burger Menu</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
   </head>
   <body>
-    
     <model-viewer 
         id="burger-model"
         src="Hamburger2.glb" 
@@ -18,16 +17,16 @@
         poster="poster.webp" 
         shadow-intensity="1.29" 
         exposure="0.69" 
+        camera-orbit="-233.4deg 64.92deg 0.3292m" 
+        field-of-view="30deg"
         touch-action="pan-y">
       
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
-      
       <button slot="ar-button" id="ar-button">
-          ПОСМОТРЕТЬ В AR
+          View in your space
       </button>
-      
       <div id="ar-prompt">
           <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
       </div>
