@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <title>AR Burger Menu</title>
+    <title>AR Menu Lite</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
@@ -14,20 +14,20 @@
         ar 
         ar-modes="scene-viewer webxr quick-look" 
         ar-placement="floor"
+        ar-scale="auto"
         camera-controls 
-        tone-mapping="neutral" 
-        poster="poster.webp" 
+        touch-action="pan-y"
         shadow-intensity="1" 
-        exposure="0.8" 
-        camera-target="0m 0.05m 0m"
-        touch-action="pan-y">
+        exposure="1" 
+        loading="eager"
+        poster="poster.webp">
       
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
 
       <button slot="ar-button" id="ar-button">
-          ПОСМОТРЕТЬ НА СТОЛЕ
+          ОТКРЫТЬ В AR
       </button>
 
       <div id="ar-prompt" slot="ar-prompt">
