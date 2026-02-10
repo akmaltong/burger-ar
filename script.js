@@ -1,40 +1,26 @@
-const marker = document.querySelector('#burger-marker');
-const entity = document.querySelector('#burger-entity');
-const hint = document.querySelector('#hint');
-const nameLabel = document.querySelector('#burger-name');
+const modelViewer = document.querySelector('#burger-model');
 
-// Читаем название бургера из URL (если есть)
-const params = new URLSearchParams(window.location.search);
-const burgerId = params.get('burger') || "Hamburger 2";
-nameLabel.textContent = burgerId;
+// 1. Динамическая подгрузка модели из URL (например, ?model=Hamburger2)
+const urlParams = new URLSearchParams(window.location.search);
+const modelName = urlParams.get('model');
 
-// Логика обнаружения маркера как в твоем проекте
-marker.addEventListener('markerFound', () => {
-    hint.classList.add('hidden');
-    console.log("Маркер найден");
+if (modelName) {
+    modelViewer.src = `${modelName}.glb`;
+    modelViewer.poster = `${modelName}.webp`;
+}
+
+// 2. ФИКС ВЫЛЕТОВ: Принудительный Scene Viewer
+modelViewer.addEventListener('load', () => {
+    // Явно указываем использовать нативное приложение
+    modelViewer.arModes = "scene-viewer";
 });
 
-marker.addEventListener('markerLost', () => {
-    hint.classList.remove('hidden');
-    console.log("Маркер потерян");
-});
-
-// Функции управления
-let rotating = false;
-function toggleRotation() {
-    rotating = !rotating;
-    if (rotating) {
-        entity.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear');
-    } else {
-        entity.removeAttribute('animation');
+// 3. Индикатор прогресса
+modelViewer.addEventListener('progress', (event) => {
+    const progressBar = document.querySelector('.progress-bar');
+    const updatingBar = document.querySelector('.update-bar');
+    updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
+    if (event.detail.totalProgress === 1) {
+        progressBar.classList.add('hide');
     }
-}
-
-function changeScale(factor) {
-    const currentScale = entity.getAttribute('scale');
-    entity.setAttribute('scale', {
-        x: currentScale.x * factor,
-        y: currentScale.y * factor,
-        z: currentScale.z * factor
-    });
-}
+});
