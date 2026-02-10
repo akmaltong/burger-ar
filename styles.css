@@ -1,37 +1,38 @@
-:not(:defined) > * {
-  display: none;
-}
-
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: transparent;
-  overflow: hidden;
+  background-color: #000; /* Черный фон до загрузки */
 }
 
 model-viewer {
   width: 100%;
   height: 100vh;
-  background-color: transparent;
+  /* Убираем отображение модели в браузере, оставляем только постер */
+  --poster-color: #000;
 }
 
 #ar-button {
-  background-color: #fff;
+  background-color: #4285f4;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  bottom: 50px;
-  padding: 12px 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
   font-family: sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
-  color: #4285f4;
-  border-radius: 25px;
-  border: 1px solid #DADCE0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  z-index: 1000;
+  color: white;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(66, 133, 244, 0.5);
+  z-index: 999;
+}
+
+/* Скрываем кнопку, когда AR запустился */
+model-viewer[ar-status="session-started"] #ar-button {
+  display: none;
 }
 
 #ar-prompt {
@@ -47,7 +48,7 @@ model-viewer[ar-status="session-started"] #ar-prompt {
 }
 
 #ar-prompt img {
-  width: 80px;
+  width: 100px;
   animation: scan 2s infinite ease-in-out;
 }
 
@@ -56,7 +57,3 @@ model-viewer[ar-status="session-started"] #ar-prompt {
   50% { transform: translateX(50px) rotate(15deg); }
   100% { transform: translateX(-50px) rotate(-15deg); }
 }
-
-.progress-bar { position: absolute; left: 0; top: 0; width: 100%; height: 4px; }
-.update-bar { background: #4285f4; height: 100%; width: 0; }
-.hide { display: none; }
