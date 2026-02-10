@@ -1,17 +1,17 @@
 const modelViewer = document.querySelector('model-viewer');
 
-// 1. Получаем имя модели из ссылки (например, ?model=CheeseBurger)
+// Получаем имя модели из URL параметра ?model=...
 const urlParams = new URLSearchParams(window.location.search);
 const modelName = urlParams.get('model');
 
-// 2. Если имя указано, подставляем нужные файлы
 if (modelName) {
+    // Если в ссылке есть ?model=Burger1, меняем файлы
     modelViewer.src = `${modelName}.glb`;
     modelViewer.iosSrc = `${modelName}.usdz`;
     modelViewer.poster = `${modelName}.webp`;
 }
 
-// 3. Обработка полоски загрузки
+// Управление полоской загрузки
 const onProgress = (event) => {
   const progressBar = event.target.querySelector('.progress-bar');
   const updatingBar = event.target.querySelector('.update-bar');
