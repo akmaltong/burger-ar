@@ -1,41 +1,27 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
-    <title>AR Burger Menu</title>
+    <title>&lt;model-viewer&gt; template</title>
     <meta charset="utf-8">
+    <meta name="description" content="&lt;model-viewer&gt; template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
   </head>
   <body>
-    
-    <model-viewer 
-        id="burger-model"
-        src="Hamburger2.glb" 
-        ar 
-        ar-modes="webxr scene-viewer quick-look" 
-        ar-placement="floor"
-        camera-controls 
-        tone-mapping="neutral" 
-        poster="poster.webp" 
-        shadow-intensity="1" 
-        exposure="0.8" 
-        camera-target="0m 0.05m 0m"
-        touch-action="pan-y">
-      
+    <!-- <model-viewer> HTML element -->
+    <model-viewer src="Hamburger2.glb" ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="aces" poster="poster.webp" shadow-intensity="1.99" exposure="0.69" camera-orbit="-233.4deg 64.92deg 0.3292m" field-of-view="30deg" shadow-softness="1">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
-
       <button slot="ar-button" id="ar-button">
-          ПОСМОТРЕТЬ НА СТОЛЕ
+          View in your space
       </button>
-
-      <div id="ar-prompt" slot="ar-prompt">
+      <div id="ar-prompt">
           <img src="ar_hand_prompt.png">
       </div>
     </model-viewer>  
-
     <script src="script.js"></script>
+    <!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
   </body>
 </html>
