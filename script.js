@@ -1,13 +1,26 @@
-// Handles loading the events for <model-viewer>'s slotted progress bar
+const modelViewer = document.querySelector('model-viewer');
+
+// 1. Получаем имя модели из ссылки (например, ?model=CheeseBurger)
+const urlParams = new URLSearchParams(window.location.search);
+const modelName = urlParams.get('model');
+
+// 2. Если имя указано, подставляем нужные файлы
+if (modelName) {
+    modelViewer.src = `${modelName}.glb`;
+    modelViewer.iosSrc = `${modelName}.usdz`;
+    modelViewer.poster = `${modelName}.webp`;
+}
+
+// 3. Обработка полоски загрузки
 const onProgress = (event) => {
   const progressBar = event.target.querySelector('.progress-bar');
   const updatingBar = event.target.querySelector('.update-bar');
   updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
   if (event.detail.totalProgress === 1) {
     progressBar.classList.add('hide');
-    event.target.removeEventListener('progress', onProgress);
   } else {
     progressBar.classList.remove('hide');
   }
 };
-document.querySelector('model-viewer').addEventListener('progress', onProgress);
+
+modelViewer.addEventListener('progress', onProgress);
