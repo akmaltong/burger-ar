@@ -1,40 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BURGRS AR - No Markers</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
+  <head>
+    <title>AR Menu Lite</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
+  </head>
+  <body>
+    
     <model-viewer 
         id="burger-model"
         src="Hamburger2.glb" 
         ar 
-        ar-modes="scene-viewer" 
+        ar-modes="scene-viewer webxr quick-look" 
         ar-placement="floor"
-        camera-controls 
-        touch-action="pan-y"
-        shadow-intensity="1" 
-        exposure="1"
+        camera-controls
         loading="eager"
+        shadow-intensity="1"
+        exposure="1"
         poster="poster.webp">
       
-        <button slot="ar-button" id="ar-button">
-            ПОСМОТРЕТЬ НА СТОЛЕ
-        </button>
+      <button slot="ar-button" id="ar-button">
+          ОТКРЫТЬ КАМЕРУ (AR)
+      </button>
 
-        <div id="ar-prompt" slot="ar-prompt">
-            <img src="ar_hand_prompt.png">
-        </div>
+      <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+      </div>
 
-        <div class="progress-bar hide" slot="progress-bar">
-            <div class="update-bar"></div>
-        </div>
+      <div id="ar-prompt" slot="ar-prompt">
+          <img src="ar_hand_prompt.png">
+      </div>
+
     </model-viewer>  
 
     <script src="script.js"></script>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-</body>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
+  </body>
 </html>
