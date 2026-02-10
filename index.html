@@ -1,63 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>AR Menu</title>
+    <title>AR Menu System</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: transparent; /* Прозрачный фон страницы */
-            overflow: hidden;
-        }
-
-        model-viewer {
-            width: 100%;
-            height: 100vh;
-            background-color: transparent; /* Прозрачный фон вьюера */
-            --poster-color: transparent;
-        }
-
-        #ar-button {
-            background-color: #fff;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 20px;
-            padding: 0 20px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            color: #4285f4;
-            height: 42px;
-            line-height: 42px;
-            border-radius: 21px;
-            border: 1px solid #DADCE0;
-            cursor: pointer;
-        }
-
-        .progress-bar {
-            display: block;
-            width: 33%;
-            height: 4px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .update-bar {
-            background-color: #4285f4;
-            width: 0%;
-            height: 100%;
-            transition: width 0.3s;
-        }
-
-        .hide { display: none; }
-    </style>
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -72,41 +19,20 @@
         exposure="0.69" 
         touch-action="pan-y">
 
-        <div class="progress-bar" slot="progress-bar">
+        <div class="progress-bar hide" slot="progress-bar">
             <div class="update-bar"></div>
         </div>
 
         <button slot="ar-button" id="ar-button">
-            ПОСМОТРЕТЬ НА СТОЛЕ
+            ПОСМОТРЕТЬ В AR
         </button>
-    </model-viewer>
 
-    <script>
-        // Скрипт для динамической смены модели
-        const modelViewer = document.querySelector('#burger-model');
-        
-        // Получаем имя модели из URL (например, ?model=Burger1)
-        const urlParams = new URLSearchParams(window.location.search);
-        const modelName = urlParams.get('model');
+        <div id="ar-prompt">
+            <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
+        </div>
+    </model-viewer>  
 
-        if (modelName) {
-            // Меняем путь к файлам на основе параметра в ссылке
-            modelViewer.src = `${modelName}.glb`;
-            modelViewer.iosSrc = `${modelName}.usdz`; // Для iPhone
-            modelViewer.poster = `${modelName}.webp`; // Для превью
-        }
-
-        // Логика загрузки
-        modelViewer.addEventListener('progress', (event) => {
-            const progress = event.detail.totalProgress;
-            const updatingBar = modelViewer.querySelector('.update-bar');
-            updatingBar.style.width = `${progress * 100}%`;
-            if (progress === 1) {
-                modelViewer.querySelector('.progress-bar').classList.add('hide');
-            }
-        });
-    </script>
-
+    <script src="script.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </body>
 </html>
