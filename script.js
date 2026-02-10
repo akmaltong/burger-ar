@@ -16,3 +16,7 @@ modelViewer.addEventListener('progress', (event) => {
     progressBar.classList.add('hide');
   }
 });
+
+modelViewer.addEventListener('ar-status', (event) => {
+  console.log('AR Status:', event.detail.status);
+});
