@@ -1,10 +1,13 @@
-body, html {
+:not(:defined) > * {
+  display: none;
+}
+
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #000; /* Фон пока не нажата кнопка */
-  overflow: hidden;
+  background-color: transparent;
 }
 
 model-viewer {
@@ -14,58 +17,56 @@ model-viewer {
   --poster-color: transparent;
 }
 
-/* Кнопка на весь экран, пока не запущен AR */
 #ar-button {
+  background-color: #fff;
   position: absolute;
-  bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #4285f4;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 15px 30px;
-  font-family: sans-serif;
+  bottom: 50px;
+  padding: 12px 24px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
   font-weight: bold;
-  font-size: 18px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  z-index: 100;
+  color: #4285f4;
+  border-radius: 25px;
+  border: 1px solid #DADCE0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
   cursor: pointer;
 }
 
-/* Когда AR запущен, скрываем кнопку и фон */
+/* Скрываем всё лишнее в момент работы AR, чтобы освободить память */
 model-viewer[ar-status="session-started"] #ar-button {
   display: none;
 }
 
-/* Настройка иконки руки */
 #ar-prompt {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   display: none;
+  pointer-events: none;
 }
 
-/* Показываем руку только при поиске поверхности */
 model-viewer[ar-status="session-started"] #ar-prompt {
   display: block;
 }
 
 #ar-prompt img {
-  width: 100px;
+  width: 80px;
   animation: scan 2s infinite ease-in-out;
 }
 
 @keyframes scan {
-  0% { transform: translateX(-60px) rotate(-20deg); }
-  50% { transform: translateX(60px) rotate(20deg); }
-  100% { transform: translateX(-60px) rotate(-20deg); }
+  0% { transform: translateX(-50px) rotate(-15deg); }
+  50% { transform: translateX(50px) rotate(15deg); }
+  100% { transform: translateX(-50px) rotate(-15deg); }
 }
 
 .progress-bar {
   position: absolute;
-  top: 0; width: 100%; height: 5px; background: rgba(255,255,255,0.2);
+  left: 0; top: 0; width: 100%; height: 4px;
 }
-.update-bar { background: #4285f4; height: 100%; width: 0; transition: width 0.3s; }
+.update-bar { background: #4285f4; height: 100%; width: 0; }
 .hide { display: none; }
