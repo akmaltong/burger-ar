@@ -1,22 +1,13 @@
-const modelViewer = document.querySelector('#burger-model');
-
-// Магия QR: меняем модель, если в ссылке есть ?model=Название
-const urlParams = new URLSearchParams(window.location.search);
-const modelName = urlParams.get('model');
-
-if (modelName) {
-    modelViewer.src = `${modelName}.glb`;
-    modelViewer.poster = `${modelName}.webp`;
-}
-
-// Полоска загрузки
-modelViewer.addEventListener('progress', (event) => {
+// Handles loading the events for <model-viewer>'s slotted progress bar
+const onProgress = (event) => {
   const progressBar = event.target.querySelector('.progress-bar');
   const updatingBar = event.target.querySelector('.update-bar');
   updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
   if (event.detail.totalProgress === 1) {
     progressBar.classList.add('hide');
+    event.target.removeEventListener('progress', onProgress);
   } else {
     progressBar.classList.remove('hide');
   }
-});
+};
+document.querySelector('model-viewer').addEventListener('progress', onProgress);
