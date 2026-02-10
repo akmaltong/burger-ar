@@ -1,40 +1,40 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <title>AR Menu Lite</title>
+<head>
+    <title>AR Burger Menu</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
-  </head>
-  <body>
-    
+</head>
+<body>
     <model-viewer 
         id="burger-model"
         src="Hamburger2.glb" 
         ar 
-        ar-modes="scene-viewer webxr quick-look" 
+        ar-modes="webxr scene-viewer quick-look" 
         ar-placement="floor"
-        camera-controls
-        loading="eager"
-        shadow-intensity="1"
+        camera-controls 
+        touch-action="pan-y"
+        shadow-intensity="1" 
         exposure="1"
         poster="poster.webp">
       
-      <button slot="ar-button" id="ar-button">
-          ОТКРЫТЬ КАМЕРУ (AR)
-      </button>
+        <button slot="ar-button" id="ar-button">
+            View in your space
+        </button>
 
-      <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-      </div>
+        <div id="ar-prompt">
+            <img src="ar_hand_prompt.png">
+        </div>
 
-      <div id="ar-prompt" slot="ar-prompt">
-          <img src="ar_hand_prompt.png">
-      </div>
+        <div id="error" class="hide">AR не поддерживается на этом устройстве</div>
 
+        <div class="progress-bar hide" slot="progress-bar">
+            <div class="update-bar"></div>
+        </div>
     </model-viewer>  
 
     <script src="script.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-  </body>
+</body>
 </html>
